@@ -1,1 +1,127 @@
 # DataquestGunDeathChallenge
+
+import csv
+openFile = open("guns.csv","r")
+loadedFile=csv.reader(openFile)
+data = list(loadedFile)
+print(data[:5])
+[['', 'year', 'month', 'intent', 'police', 'sex', 'age', 'race', 'hispanic', 'place', 'education'], ['1', '2012', '01', 'Suicide', '0', 'M', '34', 'Asian/Pacific Islander', '100', 'Home', '4'], ['2', '2012', '01', 'Suicide', '0', 'F', '21', 'White', '100', 'Street', '3'], ['3', '2012', '01', 'Suicide', '0', 'M', '60', 'White', '100', 'Other specified', '4'], ['4', '2012', '02', 'Suicide', '0', 'M', '64', 'White', '100', 'Home', '4']]
+In [3]:
+########################################
+headers = data[0]
+data = data[1:]
+print(headers)
+print(data[:5])
+['', 'year', 'month', 'intent', 'police', 'sex', 'age', 'race', 'hispanic', 'place', 'education']
+[['1', '2012', '01', 'Suicide', '0', 'M', '34', 'Asian/Pacific Islander', '100', 'Home', '4'], ['2', '2012', '01', 'Suicide', '0', 'F', '21', 'White', '100', 'Street', '3'], ['3', '2012', '01', 'Suicide', '0', 'M', '60', 'White', '100', 'Other specified', '4'], ['4', '2012', '02', 'Suicide', '0', 'M', '64', 'White', '100', 'Home', '4'], ['5', '2012', '02', 'Suicide', '0', 'M', '31', 'White', '100', 'Other specified', '2']]
+In [5]:
+########################################
+years = [row[1] for row in data]
+year_counts = {}
+for i in years:
+    if i in year_counts:
+        year_counts[i] += 1
+    else:
+        year_counts[i] = 1
+year_counts
+Out[5]:
+{'2012': 33563, '2013': 33636, '2014': 33599}
+In [7]:
+########################################
+import datetime
+dates = [datetime.datetime(year=int(row[1]), month = int(row[2]), day = 1)for row in data]
+print(dates[:5])
+[datetime.datetime(2012, 1, 1, 0, 0), datetime.datetime(2012, 1, 1, 0, 0), datetime.datetime(2012, 1, 1, 0, 0), datetime.datetime(2012, 2, 1, 0, 0), datetime.datetime(2012, 2, 1, 0, 0)]
+In [11]:
+########################################
+date_counts = {}
+for date in dates:
+    if date in date_counts:
+        date_counts[date] += 1
+    else:
+        date_counts[date] = 0
+
+date_counts
+Out[11]:
+{datetime.datetime(2012, 1, 1, 0, 0): 2757,
+ datetime.datetime(2012, 2, 1, 0, 0): 2356,
+ datetime.datetime(2012, 3, 1, 0, 0): 2742,
+ datetime.datetime(2012, 4, 1, 0, 0): 2794,
+ datetime.datetime(2012, 5, 1, 0, 0): 2998,
+ datetime.datetime(2012, 6, 1, 0, 0): 2825,
+ datetime.datetime(2012, 7, 1, 0, 0): 3025,
+ datetime.datetime(2012, 8, 1, 0, 0): 2953,
+ datetime.datetime(2012, 9, 1, 0, 0): 2851,
+ datetime.datetime(2012, 10, 1, 0, 0): 2732,
+ datetime.datetime(2012, 11, 1, 0, 0): 2728,
+ datetime.datetime(2012, 12, 1, 0, 0): 2790,
+ datetime.datetime(2013, 1, 1, 0, 0): 2863,
+ datetime.datetime(2013, 2, 1, 0, 0): 2374,
+ datetime.datetime(2013, 3, 1, 0, 0): 2861,
+ datetime.datetime(2013, 4, 1, 0, 0): 2797,
+ datetime.datetime(2013, 5, 1, 0, 0): 2805,
+ datetime.datetime(2013, 6, 1, 0, 0): 2919,
+ datetime.datetime(2013, 7, 1, 0, 0): 3078,
+ datetime.datetime(2013, 8, 1, 0, 0): 2858,
+ datetime.datetime(2013, 9, 1, 0, 0): 2741,
+ datetime.datetime(2013, 10, 1, 0, 0): 2807,
+ datetime.datetime(2013, 11, 1, 0, 0): 2757,
+ datetime.datetime(2013, 12, 1, 0, 0): 2764,
+ datetime.datetime(2014, 1, 1, 0, 0): 2650,
+ datetime.datetime(2014, 2, 1, 0, 0): 2360,
+ datetime.datetime(2014, 3, 1, 0, 0): 2683,
+ datetime.datetime(2014, 4, 1, 0, 0): 2861,
+ datetime.datetime(2014, 5, 1, 0, 0): 2863,
+ datetime.datetime(2014, 6, 1, 0, 0): 2930,
+ datetime.datetime(2014, 7, 1, 0, 0): 2883,
+ datetime.datetime(2014, 8, 1, 0, 0): 2969,
+ datetime.datetime(2014, 9, 1, 0, 0): 2913,
+ datetime.datetime(2014, 10, 1, 0, 0): 2864,
+ datetime.datetime(2014, 11, 1, 0, 0): 2755,
+ datetime.datetime(2014, 12, 1, 0, 0): 2856}
+########################################
+In [13]:
+
+sexData = [row[5] for row in data]
+sex_counts = {}
+for sexes in sexData:
+    if sexes in sex_counts:
+        sex_counts[sexes] +=1
+    else:
+        sex_counts[sexes] = 0
+race_counts = {}
+raceData = [row[7] for row in data]
+for races in raceData:
+    if races in race_counts:
+        race_counts[races] +=1
+    else:
+        race_counts[races] = 0
+print (sex_counts)
+print (race_counts)
+sexData = [row[5] for row in data]
+sex_counts = {}
+for sexes in sexData:
+    if sexes in sex_counts:
+        sex_counts[sexes] +=1
+    else:
+        sex_counts[sexes] = 0
+race_counts = {}
+raceData = [row[7] for row in data]
+for races in raceData:
+    if races in race_counts:
+        race_counts[races] +=1
+    else:
+        race_counts[races] = 0
+print (sex_counts)
+print (race_counts)
+{'M': 86348, 'sex': 0, 'F': 14448}
+{'Asian/Pacific Islander': 1325, 'Hispanic': 9021, 'Native American/Native Alaskan': 916, 'White': 66236, 'Black': 23295, 'race': 0}
+########################################
+In [14]:
+
+import csv
+​
+openCensus = open("census.csv", "r")
+census = list(csv.reader(openCensus))
+print(census)
+[['Id', 'Year', 'Id', 'Sex', 'Id', 'Hispanic Origin', 'Id', 'Id2', 'Geography', 'Total', 'Race Alone - White', 'Race Alone - Hispanic', 'Race Alone - Black or African American', 'Race Alone - American Indian and Alaska Native', 'Race Alone - Asian', 'Race Alone - Native Hawaiian and Other Pacific Islander', 'Two or More Races'], ['cen42010', 'April 1, 2010 Census', 'totsex', 'Both Sexes', 'tothisp', 'Total', '0100000US', '', 'United States', '308745538', '197318956', '44618105', '40250635', '3739506', '15159516', '674625', '6984195']]
